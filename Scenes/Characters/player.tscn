@@ -115,3 +115,11 @@ shape = SubResource("RectangleShape2D_0wv76")
 libraries = {
 "": SubResource("AnimationLibrary_2vqv6")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -7)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_top_margin = 0.1
+drag_right_margin = 0.1
