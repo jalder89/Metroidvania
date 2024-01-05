@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn5713eo2y6e2"]
+
+[ext_resource type="Texture2D" uid="uid://d0l11a5cidqhn" path="res://Assets/effects/dust_effect.png" id="1_jtu60"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5h2pi"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="DustEffect" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_5h2pi")
+position = Vector2(-1, 0)
+amount = 1
+lifetime = 1.1
+explosiveness = 1.0
+texture = ExtResource("1_jtu60")
+direction = Vector2(2.08165e-12, -1)
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 2.0
+initial_velocity_max = 8.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]
