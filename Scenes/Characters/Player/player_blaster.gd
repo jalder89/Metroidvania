@@ -9,8 +9,6 @@ func _process(delta):
 	blaster_sprite.rotation = get_local_mouse_position().angle()
 
 func fire_bullet():
-	var bullet = BULLET_SCENE.instantiate()
-	var world = get_tree().current_scene
+	var bullet = Utils.instantiate_scene_on_world(BULLET_SCENE, muzzle.global_position)
 	bullet.rotation = blaster_sprite.rotation
-	bullet.global_position = muzzle.global_position
-	world.add_child(bullet)
+	bullet.update_velocity()
