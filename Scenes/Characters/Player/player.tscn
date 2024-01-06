@@ -155,3 +155,7 @@ drag_right_margin = 0.1
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="FireRateTimer" type="Timer" parent="."]
+wait_time = 0.175
+one_shot = true

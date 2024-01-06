@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var sprite_2d = $Sprite2D
 @onready var coyote_jump_timer = $CoyoteJumpTimer
 @onready var player_blaster = $PlayerBlaster
+@onready var fire_rate_timer = $FireRateTimer
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -200.0
@@ -23,7 +24,9 @@ func _physics_process(delta):
 		apply_acceleration(delta, input_axis)
 	else:
 		apply_friction(delta)
-	if Input.is_action_just_pressed("fire"): player_blaster.fire_bullet()
+	if Input.is_action_pressed("fire") and fire_rate_timer.time_left == 0: 
+		player_blaster.fire_bullet()
+		fire_rate_timer.start()
 	jump()
 	update_animations(input_axis)
 	var was_on_floor = is_on_floor()
