@@ -9,9 +9,10 @@ extends CharacterBody2D
 
 @onready var animation_player = $AnimationPlayer
 @onready var sprite_2d = $Sprite2D
-@onready var coyote_jump_timer = $CoyoteJumpTimer
+@onready var coyote_jump_timer = $Timers/CoyoteJumpTimer
 @onready var player_blaster = $PlayerBlaster
-@onready var fire_rate_timer = $FireRateTimer
+@onready var fire_rate_timer = $Timers/FireRateTimer
+@onready var drop_timer = $Timers/DropTimer
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -200.0
@@ -28,6 +29,9 @@ func _physics_process(delta):
 		player_blaster.fire_bullet()
 		fire_rate_timer.start()
 	jump()
+	if Input.is_action_pressed("crouch") and Input.is_action_just_pressed("jump"):
+		set_collision_mask_value(2, false)
+		drop_timer.start()
 	update_animations(input_axis)
 	var was_on_floor = is_on_floor()
 	move_and_slide()
@@ -54,7 +58,7 @@ func apply_friction(delta):
 
 func jump():
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") and not Input.is_action_pressed("crouch"):
 			velocity.y += -jump_force
 	if not is_on_floor():
 		if Input.is_action_just_released("jump") and velocity.y < -jump_force / 2:
@@ -74,3 +78,7 @@ func update_animations(input_axis):
 			animation_player.play("jump")
 		elif velocity.y > 0:
 			animation_player.play("fall")
+
+
+func _on_drop_timer_timeout():
+	set_collision_mask_value(2, true) # Replace with function body.

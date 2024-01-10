@@ -117,6 +117,9 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 10
+collision_layer = 4
+collision_mask = 3
 floor_snap_length = 2.0
 script = ExtResource("1_o33vf")
 
@@ -152,10 +155,18 @@ drag_vertical_enabled = true
 drag_top_margin = 0.1
 drag_right_margin = 0.1
 
-[node name="CoyoteJumpTimer" type="Timer" parent="."]
+[node name="Timers" type="Node" parent="."]
+
+[node name="CoyoteJumpTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
 one_shot = true
 
-[node name="FireRateTimer" type="Timer" parent="."]
+[node name="FireRateTimer" type="Timer" parent="Timers"]
 wait_time = 0.175
 one_shot = true
+
+[node name="DropTimer" type="Timer" parent="Timers"]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="timeout" from="Timers/DropTimer" to="." method="_on_drop_timer_timeout"]
