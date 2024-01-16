@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 @onready var sprite_2d = $Sprite2D
 @onready var floor_cast = $FloorCast
+@onready var stats = $Stats
 
 var gravity = 200
 var direction = 1.0
@@ -31,7 +32,8 @@ func turn_around():
 	direction *= -1
 
 
-func _on_hurtbox_hurt(hitbox : Hitbox, damage):
-	hitbox.queue_free()
-	print(damage)
+func _on_hurtbox_hurt(_hitbox : Hitbox, damage):
+	stats.set_health(stats.health - damage)
+
+func _on_stats_no_health():
 	queue_free()
