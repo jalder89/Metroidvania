@@ -1,8 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://b027ttn07cwa1"]
+[gd_scene load_steps=8 format=3 uid="uid://b027ttn07cwa1"]
 
 [ext_resource type="Texture2D" uid="uid://d1j1rd8a4dtim" path="res://Assets/player/player_bullet.png" id="1_73icb"]
 [ext_resource type="PackedScene" uid="uid://g4n78odysi0t" path="res://Scenes/Objects/projectile.tscn" id="1_kaqvq"]
 [ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="2_qk0nb"]
+
+[sub_resource type="Animation" id="Animation_n10rn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_qw30t"]
 resource_name = "fire"
@@ -34,26 +49,14 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_n10rn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fn31m"]
 _data = {
 "RESET": SubResource("Animation_n10rn"),
 "fire": SubResource("Animation_qw30t")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl7ha"]
+size = Vector2(7, 4)
 
 [node name="Bullet" instance=ExtResource("1_kaqvq")]
 script = ExtResource("2_qk0nb")
@@ -71,3 +74,10 @@ libraries = {
 "": SubResource("AnimationLibrary_fn31m")
 }
 autoplay = "fire"
+
+[node name="Hitbox" parent="." index="3"]
+collision_mask = 35
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_xl7ha")

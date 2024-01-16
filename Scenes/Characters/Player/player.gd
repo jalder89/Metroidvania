@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var friction = 256
 @export var gravity = 200
 @export var jump_force = 128
+@export var player_name ="Jessica"
 
 @onready var animation_player = $AnimationPlayer
 @onready var sprite_2d = $Sprite2D
@@ -13,6 +14,7 @@ extends CharacterBody2D
 @onready var player_blaster = $PlayerBlaster
 @onready var fire_rate_timer = $Timers/FireRateTimer
 @onready var drop_timer = $Timers/DropTimer
+@onready var camera_2d = $Camera2D
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -200.0
@@ -82,3 +84,8 @@ func update_animations(input_axis):
 
 func _on_drop_timer_timeout():
 	set_collision_mask_value(2, true) # Replace with function body.
+
+
+func _on_hurtbox_hurt(hitbox, damage):
+	camera_2d.reparent(hitbox)
+	queue_free()
