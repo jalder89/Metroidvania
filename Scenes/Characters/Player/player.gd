@@ -16,9 +16,10 @@ extends CharacterBody2D
 @onready var drop_timer = $Timers/DropTimer
 @onready var camera_2d = $Camera2D
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -200.0
-const DUST_EFFECT_SCENE = preload("res://Assets/effects/dust_effect.tscn")
+const Speed = 100.0
+const JumpVelocity = -200.0
+const DustEffectScene = preload("res://Assets/effects/dust_effect.tscn")
+const JumpEffectScene = preload("res://Assets/effects/jump_effect.tscn")
 
 func _physics_process(delta):
 	apply_gravity(delta)
@@ -43,7 +44,7 @@ func _physics_process(delta):
 
 
 func create_dust_effect():
-	Utils.instantiate_scene_on_world(DUST_EFFECT_SCENE, global_position)
+	Utils.instantiate_scene_on_world(DustEffectScene, global_position)
 
 func apply_gravity(delta):
 	if not is_on_floor():
@@ -62,6 +63,7 @@ func jump():
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
 		if Input.is_action_just_pressed("jump") and not Input.is_action_pressed("crouch"):
 			velocity.y += -jump_force
+			Utils.instantiate_scene_on_world(JumpEffectScene, global_position)
 	if not is_on_floor():
 		if Input.is_action_just_released("jump") and velocity.y < -jump_force / 2:
 			velocity.y = -jump_force / 2
