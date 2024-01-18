@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Utils="*res://Scripts/utils.gd"
 Events="*res://Scripts/events.gd"
+PlayerStats="*res://Scenes/Characters/Player/player_stats.tscn"
 
 [display]
 
@@ -27,6 +28,10 @@ window/size/viewport_height=180
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

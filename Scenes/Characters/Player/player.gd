@@ -15,11 +15,17 @@ extends CharacterBody2D
 @onready var fire_rate_timer = $Timers/FireRateTimer
 @onready var drop_timer = $Timers/DropTimer
 @onready var camera_2d = $Camera2D
+@onready var hurtbox : Hurtbox = $Hurtbox
 
 const Speed = 100.0
 const JumpVelocity = -200.0
 const DustEffectScene = preload("res://Assets/effects/dust_effect.tscn")
 const JumpEffectScene = preload("res://Assets/effects/jump_effect.tscn")
+
+var lastHitBy
+
+func _ready():
+	PlayerStats.no_health.connect(die)
 
 func _physics_process(delta):
 	apply_gravity(delta)
@@ -83,12 +89,18 @@ func update_animations(input_axis):
 		elif velocity.y > 0:
 			animation_player.play("fall")
 
+func die():
+	camera_2d.reparent(lastHitBy)
+	queue_free()
 
 func _on_drop_timer_timeout():
 	set_collision_mask_value(2, true) # Replace with function body.
 
 
 func _on_hurtbox_hurt(hitbox, damage):
+	lastHitBy = hitbox
 	Events.add_screenshake.emit(4, 0.2)
-	camera_2d.reparent(hitbox)
-	queue_free()
+	PlayerStats.health -= 1
+	hurtbox.is_invincible = true
+	await get_tree().create_timer(1.0).timeout
+	hurtbox.is_invincible = false
