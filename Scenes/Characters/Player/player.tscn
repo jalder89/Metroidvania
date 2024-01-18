@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dsvgm80bl4b00"]
+[gd_scene load_steps=14 format=3 uid="uid://dsvgm80bl4b00"]
 
 [ext_resource type="Texture2D" uid="uid://bkprxqyvov2kj" path="res://Assets/player/player.png" id="1_0ndrh"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/player.gd" id="1_o33vf"]
 [ext_resource type="PackedScene" uid="uid://chwoyx0pfkm22" path="res://Scenes/Characters/Player/player_blaster.tscn" id="2_nhvfm"]
 [ext_resource type="PackedScene" uid="uid://bisx3yyw4jrha" path="res://Scenes/Objects/Colliders/hurtbox.tscn" id="4_0i8xc"]
+[ext_resource type="PackedScene" uid="uid://2v81vswibin1" path="res://Scenes/camera_2d.tscn" id="4_73eoj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wv76"]
 size = Vector2(8, 14)
@@ -151,13 +152,7 @@ libraries = {
 "": SubResource("AnimationLibrary_2vqv6")
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -7)
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_top_margin = 0.1
-drag_right_margin = 0.1
+[node name="Camera2D" parent="." instance=ExtResource("4_73eoj")]
 
 [node name="Timers" type="Node" parent="."]
 

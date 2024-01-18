@@ -89,5 +89,6 @@ func _on_drop_timer_timeout():
 
 
 func _on_hurtbox_hurt(hitbox, damage):
+	Events.add_screenshake.emit(4, 0.2)
 	camera_2d.reparent(hitbox)
 	queue_free()

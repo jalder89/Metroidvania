@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://2v81vswibin1"]
+
+[ext_resource type="Script" path="res://Scenes/camera_2d.gd" id="1_rg37m"]
+
+[node name="Camera2D" type="Camera2D"]
+position = Vector2(0, -7)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+script = ExtResource("1_rg37m")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
